@@ -11,6 +11,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "checkJs": true,
+    // config to auto import components
+    "baseUrl": ".",
     "incremental": true,
     "plugins": [
       {
