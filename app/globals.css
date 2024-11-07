@@ -67,6 +67,10 @@ body {
     --chart-5: 340 75% 55%;
   }
 
+  .bg-columns {
+    background: rgba(23, 22, 24, 1);
+  }
+
   .s-link {
     @apply text-blue-400 underline;
     visited: text-blue-600;
