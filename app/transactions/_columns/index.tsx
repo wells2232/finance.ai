@@ -4,8 +4,17 @@ import { Transaction } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import TransactionTypeBadge from "../_components/type-badge";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+export const TRANSACTION_CATEGORY_LABELS = {
+  EDUCATION: "Educação",
+  FOOD: "Alimentação",
+  HEALTH: "Saúde",
+  HOUSING: "Moradia",
+  TRANSPORT: "Transporte",
+  UTILITY: "Utilidades",
+  OTHER: "Outros",
+  SALARY: "Salário",
+  ENTERTAINMENT: "Entretenimento",
+};
 
 export const transactionsColumns: ColumnDef<Transaction>[] = [
   {
@@ -22,6 +31,8 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "category",
     header: "Categoria",
+    cell: ({ row: { original: transaction } }) =>
+      TRANSACTION_CATEGORY_LABELS[transaction.category],
   },
   {
     accessorKey: "paymentMethod",

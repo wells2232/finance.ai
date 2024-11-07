@@ -40,7 +40,7 @@ enum TransactionCategory {
   SALARY
   UTILITY
   HOUSING
-  ENTERTEINMENT
+  ENTERTAINMENT
   OTHER
 }
 
