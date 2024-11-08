@@ -11,6 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        darkgray: "rgba(255, 255, 255, 0.03)",
+        darkgreen: "#161716",
         danger: "#E93030",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

@@ -70,11 +70,6 @@ body {
   .bg-columns {
     background: rgba(23, 22, 24, 1);
   }
-
-  .s-link {
-    @apply text-blue-400 underline;
-    visited: text-blue-600;
-  }
 }
 
 @layer base {
@@ -83,7 +78,6 @@ body {
   }
   html {
     @apply h-full;
-
   }
   body {
     @apply h-full bg-background text-foreground;
