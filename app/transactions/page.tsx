@@ -17,6 +17,7 @@ export default async function TransactionsPage() {
       userId,
     },
   });
+
   return (
     <div>
       {/*NavBar*/}
