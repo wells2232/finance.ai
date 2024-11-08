@@ -4,6 +4,7 @@ import { transactionsColumns } from "./_columns";
 import AddTransactionButton from "../_components/add-transaction-button";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import NavBar from "../_components/navbar";
 
 export default async function TransactionsPage() {
   const { userId } = await auth();
@@ -18,6 +19,10 @@ export default async function TransactionsPage() {
   });
   return (
     <div>
+      {/*NavBar*/}
+      <div>
+        <NavBar />
+      </div>
       {/*TITULO e BOTÂO*/}
       <div className="flex h-full items-center justify-between p-6 pr-8">
         <h1 className="text-2xl font-bold">Transações</h1>
