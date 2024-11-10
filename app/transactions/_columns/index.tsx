@@ -10,6 +10,7 @@ import {
   TRANSACTION_PAYMENT_METHOD_LABELS,
 } from "@/app/_constants/transactions";
 import EditTransactionButton from "../_components/edit-transaction-button";
+import { formatCurrencyBRL } from "@/app/_utils/currency";
 
 export const transactionsColumns: ColumnDef<Transaction>[] = [
   {
@@ -49,10 +50,7 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
     accessorKey: "amount",
     header: "Valor",
     cell: ({ row: { original: transaction } }) =>
-      new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(Number(transaction.amount)),
+      formatCurrencyBRL(Number(transaction.amount)),
   },
   {
     accessorKey: "actions",
