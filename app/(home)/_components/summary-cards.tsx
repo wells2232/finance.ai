@@ -178,7 +178,7 @@ export default async function SummaryCards({
 
         {/* CARD RECEITA */}
         <SummaryCard
-          icon={<TrendingUpIcon size={16} className="text-primary" />}
+          icon={<TrendingUpIcon size={16} className="bg text-primary" />}
           title={"Receita"}
           amount={totalDeposit}
         />

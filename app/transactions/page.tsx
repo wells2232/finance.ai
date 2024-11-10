@@ -5,6 +5,7 @@ import AddTransactionButton from "../_components/add-transaction-button";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import NavBar from "../_components/navbar";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export default async function TransactionsPage() {
   const { userId } = await auth();
@@ -19,22 +20,22 @@ export default async function TransactionsPage() {
   });
 
   return (
-    <div>
-      {/*NavBar*/}
-      <div>
-        <NavBar />
+    <>
+      <NavBar />
+
+      <div className="space-y-6 overflow-hidden p-6">
+        {/*TITULO e BOTÂO*/}
+        <div className="flex w-full items-center justify-between">
+          <h1 className="text-2xl font-bold">Transações</h1>
+          <AddTransactionButton />
+        </div>
+        <ScrollArea className="overflow-hidden">
+          <DataTable
+            columns={transactionsColumns}
+            data={JSON.parse(JSON.stringify(transactions))}
+          ></DataTable>
+        </ScrollArea>
       </div>
-      {/*TITULO e BOTÂO*/}
-      <div className="flex h-full items-center justify-between p-6 pr-8">
-        <h1 className="text-2xl font-bold">Transações</h1>
-        <AddTransactionButton />
-      </div>
-      <div className="px-8">
-        <DataTable
-          columns={transactionsColumns}
-          data={JSON.parse(JSON.stringify(transactions))}
-        ></DataTable>
-      </div>
-    </div>
+    </>
   );
 }
