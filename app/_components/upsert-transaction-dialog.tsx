@@ -41,6 +41,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpsertTransaction } from "../_actions/upsert-transaction";
+import { useEffect } from "react";
+import { Loader2Icon } from "lucide-react";
 
 interface UpsertTransactionDialogProps {
   isOpen: boolean;
@@ -105,6 +107,14 @@ export default function UpsertTransactionDialog({
   };
 
   const isUpdate = Boolean(transactionId);
+  const isLoading = form.formState.isSubmitting;
+
+  // ensure the data is loaded before editing again
+  useEffect(() => {
+    if (defaultValues && isOpen) {
+      form.reset(defaultValues);
+    }
+  }, [defaultValues, form, isOpen]);
 
   return (
     <Dialog
@@ -254,14 +264,22 @@ export default function UpsertTransactionDialog({
               )}
             />
             <DialogFooter>
+              {isLoading ? (
+                <Button disabled>
+                  <Loader2Icon className="animate-spin" />
+                  Salvando...
+                </Button>
+              ) : (
+                <Button type="submit">
+                  {isUpdate && !isLoading ? "Atualizar" : "Adicionar"}
+                </Button>
+              )}
+
               <DialogClose asChild>
                 <Button type="button" variant="outline">
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">
-                {isUpdate ? "Atualizar" : "Adicionar"}
-              </Button>
             </DialogFooter>
           </form>
         </Form>

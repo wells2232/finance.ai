@@ -17,6 +17,20 @@ interface HomeProps {
   };
 }
 
+/**
+ * The Home component is an asynchronous function that renders the dashboard page.
+ * It performs user authentication, validates the month parameter, and fetches
+ * necessary data for the dashboard.
+ *
+ * @param {HomeProps} props - The properties passed to the Home component.
+ * @param {Object} props.searchParams - The search parameters from the URL.
+ * @param {string} props.searchParams.month - The month parameter from the URL.
+ *
+ * @returns {JSX.Element} The rendered dashboard page.
+ *
+ * @throws Will redirect to the login page if the user is not authenticated.
+ * @throws Will redirect to the current month if the month parameter is invalid.
+ */
 export default async function Home({ searchParams: { month } }: HomeProps) {
   const { userId } = await auth();
   if (!userId) {
