@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import NavBar from "../_components/navbar";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { canUserAddTransaction } from "../_data/can-user-add-transaction";
 
 export default async function TransactionsPage() {
   const { userId } = await auth();
@@ -17,7 +18,12 @@ export default async function TransactionsPage() {
     where: {
       userId,
     },
+    orderBy: {
+      date: "desc",
+    },
   });
+
+  const userCanAddTransactions = await canUserAddTransaction();
 
   return (
     <>
@@ -27,7 +33,9 @@ export default async function TransactionsPage() {
         {/*TITULO e BOTÂO*/}
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Transações</h1>
-          <AddTransactionButton />
+          <AddTransactionButton
+            userCanAddTransactions={userCanAddTransactions}
+          />
         </div>
         <ScrollArea className="overflow-hidden">
           <DataTable
