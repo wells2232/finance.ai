@@ -62,7 +62,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
   mode: "jit", // Just-In-Time Compiler
   purge: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
