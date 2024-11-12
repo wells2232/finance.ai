@@ -22,12 +22,15 @@ const AcquirePlanButton = () => {
     await stripe.redirectToCheckout({ sessionId });
   };
   const hasPremiumPlan = user?.publicMetadata.subscriptionPlan == "premium";
+  if (!process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL) {
+    throw new Error("Stripe customer portal URL not found");
+  }
 
   if (hasPremiumPlan) {
     return (
       <Button className="w-full rounded-full font-bold" variant="link">
         <Link
-          href={`${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${JSON.stringify(user.emailAddresses[0].emailAddress)}`}
+          href={`${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user.emailAddresses[0].emailAddress}`}
         >
           Gerenciar plano
         </Link>
