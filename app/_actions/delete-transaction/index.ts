@@ -32,4 +32,5 @@ export async function DeleteTransaction({
   });
 
   revalidatePath("/transactions");
+  revalidatePath("/");
 }

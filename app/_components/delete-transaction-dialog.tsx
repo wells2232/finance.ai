@@ -12,6 +12,7 @@ import {
 import { Button } from "./ui/button";
 import { DeleteTransaction } from "../_actions/delete-transaction";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface DeleteTransactionDialogProps {
   isOpen: boolean;
@@ -30,8 +31,10 @@ export default function DeleteTransactionDialog({
     try {
       setIsDeleting(true);
       await DeleteTransaction({ transactionId });
+      toast.success("Transação deletada com sucesso!");
     } catch (error) {
       console.error(error);
+      toast.error("Erro ao deletar transação");
     } finally {
       setIsOpen(false);
       setIsDeleting(false);

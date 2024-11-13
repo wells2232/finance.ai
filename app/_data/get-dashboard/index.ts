@@ -100,6 +100,6 @@ export default async function getDashboard(month: string) {
     balance,
     typesPercentages,
     totalExpensesPerCategory,
-    lastTransactions,
+    lastTransactions: JSON.parse(JSON.stringify(lastTransactions)),
   };
 }
