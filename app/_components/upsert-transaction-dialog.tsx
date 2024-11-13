@@ -41,8 +41,9 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpsertTransaction } from "../_actions/upsert-transaction";
-import { useEffect } from "react";
-import { Loader2Icon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Loader2Icon, Trash2Icon } from "lucide-react";
+import DeleteTransactionDialog from "./delete-transaction-dialog";
 
 interface UpsertTransactionDialogProps {
   isOpen: boolean;
@@ -95,6 +96,8 @@ export default function UpsertTransactionDialog({
       type: TransactionType.EXPENSE,
     },
   });
+
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const onSubmit = async (data: FormSchema) => {
     try {
@@ -263,6 +266,22 @@ export default function UpsertTransactionDialog({
                 </FormItem>
               )}
             />
+
+            <div className="flex justify-end text-danger">
+              {isUpdate && transactionId && (
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setIsDeleteDialogOpen(true);
+                    setIsOpen(false);
+                  }}
+                >
+                  Deletar Transação
+                  <Trash2Icon />
+                </Button>
+              )}
+            </div>
+
             <DialogFooter>
               {isLoading ? (
                 <Button disabled>
@@ -284,6 +303,13 @@ export default function UpsertTransactionDialog({
           </form>
         </Form>
       </DialogContent>
+      {isUpdate && transactionId && (
+        <DeleteTransactionDialog
+          isOpen={isDeleteDialogOpen}
+          setIsOpen={setIsDeleteDialogOpen}
+          transactionId={transactionId}
+        />
+      )}
     </Dialog>
   );
 }
