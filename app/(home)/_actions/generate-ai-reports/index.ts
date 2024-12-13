@@ -33,16 +33,18 @@ export const generateAiReport = async ({ month }: GenerateAiReportSchema) => {
         gte: new Date(`2024-${month}-01`),
         lt: new Date(`2024-${month}-31`),
       },
+      userId,
     },
   });
+
+  console.log(transactions);
   // mandar as transações para o ChatGPT e pedir para ele gerar um relatório com insights
   const content = `Gere um relatório com insights sobre as minhas finanças, com dicas e orientações de como melhorar minha vida financeira. As transações estão divididas por ponto e vírgula. A estrutura de cada uma é {DATA}-{TIPO}-{VALOR}-{CATEGORIA}. São elas:
-  ${transactions
-    .map(
-      (transaction) =>
-        `${transaction.date.toLocaleDateString("pt-BR")}-R$${transaction.amount}-${transaction.type}-${transaction.category}`,
-    )
-    .join(";")}`;
+  ${transactions.map(
+    (transaction) =>
+      `${transaction.date.toISOString().split("T")[0]}-${transaction.type}-${transaction.amount}-${transaction.category}`,
+  )}`;
+
   const completion = await openAi.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
@@ -57,6 +59,8 @@ export const generateAiReport = async ({ month }: GenerateAiReportSchema) => {
       },
     ],
   });
+
+  console.log(transactions);
   // pegar o relatório gerado pelo ChatGPT e retornar para o usuário
   return completion.choices[0].message.content;
 };

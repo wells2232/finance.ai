@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { startOfMonth, endOfMonth } from "date-fns";
 
 export const getCurrentMonthTransactions = async () => {
-  const { userId } = await auth();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
