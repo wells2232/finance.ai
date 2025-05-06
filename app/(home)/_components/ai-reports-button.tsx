@@ -33,6 +33,7 @@ export default function AiReportButton({
     try {
       setReportIsLoading(true);
       const aiReport = await generateAiReport({ month });
+console.log(aiReport):
       setReport(aiReport);
     } catch (error) {
       console.error(error);
